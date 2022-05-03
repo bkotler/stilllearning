@@ -1,3 +1,4 @@
+import pandas as pd
 class Game:
     """This is the class that holds the functions that run our final project, a word game. This game 
     reads a text file with words on it and a text file with the clues for guessing each word on it.
@@ -6,24 +7,29 @@ class Game:
     and computer are awarded points based on the amount of guesses they used.
     """
     
-    def __init__(self, player_name = "Joe"):
+    def __init__(self, player_name):
         """This will set up the game and initiate the game attributes
         Args:
             player_name (str): The name of the player
         Side effects:
             Sets all the attributes and initilizes the game
         """
-        
-    def open_files(self, words_path, clues_path):
-        """This will open two files and set them to lists. One file will be
-            for the words and another for the clues.
-        Args:
-            words_path (str): Filename of the words file
-            clues_path (str): Filename of the clues file
+        self.player_name = player_name
+        self.user_words_guessed = list()
+        self.user_points = 0
+    def open_files(self, easy_path, medium_path, hard_path):
+        """This will open three files and set them to dataframes. Each file
+            is a csv file with of each word and clue
+            easy_path (str): Filename of the easy clues file
+            medium_path (str): Filename of the medium clues file
+            hard_path (str): Filename of the hard clues file
         Side effects:
             Sets the words_list and clues_list attributes to the data from the
                 files.
         """
+        easy_df = pd.read_csv(easy_path)
+        medium_df = pd.read_csv(medium_path)
+        hard_df = pd.read_csv(hard_path)
     
     def user_guesses(self, player, guess_length):
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
@@ -89,4 +95,4 @@ class Game:
         '''
         
 if __name__ == "__main__":
-    new_game = Game()
+    new_game = Game("Joe")
