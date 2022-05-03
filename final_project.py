@@ -6,16 +6,45 @@ class Game:
     and computer are awarded points based on the amount of guesses they used.
     """
     
-    def __init__():
+    def __init__(self, player_name = "Joe"):
+        """This will set up the game and initiate the game attributes
+        Args:
+            player_name (str): The name of the player
+        Side effects:
+            Sets all the attributes and initilizes the game
+        """
         
     
-    def open_files():
+    def open_files(self, words_path, clues_path):
+        """This will open two files and set them to lists. One file will be
+            for the words and another for the clues.
+        Args:
+            words_path (str): Filename of the words file
+            clues_path (str): Filename of the clues file
+        Side effects:
+            Sets the words_list and clues_list attributes to the data from the
+                files.
+        """
         
     
-    def user_guesses():
+    def user_guesses(self, player, guess_length):
+        """This function will take the letters or word guessed by the player and it will return a match stored in the file.
+        Args:
+            player (str): The player will identify who they are
+            guess_length (str):The length of the word guessed by the player
+        Returns:
+             str: Will return the guesses made by the player (letters or a word)
+        """
         
         
-    def computer_guesses():
+    def computer_guesses(self, player, guess_length):
+        """This function will take the letters or word guessed by the player and it will return a match stored in the file.
+        Args:
+            player (str): The computer will let the humna player know they are playing against the computer
+            guess_length (str): The length of the word guessed by the computer player
+        Returns:
+             str: Will return the guesses made by the computer (letters or a word)
+        """
         
         
     def show_screen(self, player, computer, points, length, guess_number):
@@ -54,9 +83,18 @@ class Game:
         '''
         
         
+        
+        
     def pick_difficulty(self, difficulty):
         '''This function will determine the difficulty of the game, ranging from easiest to hardest
         
             Args:
                 difficulty (str): the level of difficulty
         '''
+        
+        if difficulty == "easy":
+            return easy_file
+        elif difficulty == "medium":
+            return medium_file
+        else:
+            return hard_file
