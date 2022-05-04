@@ -1,4 +1,5 @@
 import pandas as pd
+from random import randint
 class Game:
     """This is the class that holds the functions that run our final project, a word game. This game 
     reads a text file with words on it and a text file with the clues for guessing each word on it.
@@ -31,7 +32,7 @@ class Game:
         medium_df = pd.read_csv(medium_path)
         hard_df = pd.read_csv(hard_path)
     
-    def user_guesses(self, player, guess_length):
+    def user_guesses(self, player, guess_length, clue):
         
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
 
@@ -41,21 +42,15 @@ class Game:
         Returns:
              str: Will return the guesses made by the player (letters or a word)
         """
-        name = input("Type your name: ")
-        print(f" Hey {name}, Goodluck!")
+        return input(f"Your clue is {clue}. Enter a word to solve: ")
         
         
-            
-            
-        words = input("Guess a word to solve this word game: ")
-        turns = 0
-        while turns < 3:
-                for words in .csv:
-                    if words in .csv:
-                        print(f"Right word {words}")
-                    else:
-                        turns += 1
-                        print
+        
+        
+    def generate_words(self):
+        word = self.df.iloc(randint(0, len(self.df)-1), "Words")
+        clue = self.df.iloc(word, "Clues")
+        return (word, clue)
         
         
     def computer_guesses(self, player, guess_length):
