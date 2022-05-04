@@ -43,19 +43,17 @@ class Game:
         """
         name = input("Type your name: ")
         print(f" Hey {name}, Goodluck!")
-        
-        
             
             
         words = input("Guess a word to solve this word game: ")
         turns = 0
         while turns < 3:
-                for words in .csv:
-                    if words in .csv:
-                        print(f"Right word {words}")
-                    else:
-                        turns += 1
-                        print
+            for words in .csv:
+                if words in .csv:
+                    print(f"Right word {words}")
+                else:
+                    turns += 1
+                    print
         
         
     def computer_guesses(self, player, guess_length):
