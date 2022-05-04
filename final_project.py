@@ -22,6 +22,7 @@ class Game:
         self.df = self.pick_difficulty()
         self.generate_word = self.word, self.clue
         self.play_game()
+        
     def open_files(self, easy_path, medium_path, hard_path):
         """This will open three files and set them to dataframes. Each file
             is a csv file with of each word and clue
