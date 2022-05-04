@@ -121,14 +121,14 @@ class Game:
         else:
             points = 0
             
-    def pick_opponent(self, user, name):
+    def pick_opponent(self, oppponent):
         '''This function picks whether the user is playing against the computer or another person
         
             Args:
-                user (str): the type of opponent
-                name (str): the name of the opponent
+                opponent (str): the name of the opponent
         '''
         
+        self.opponent = oppponent
         
     def pick_difficulty(self, difficulty):
         '''This function will determine the difficulty of the game, ranging from easiest to hardest
@@ -136,6 +136,13 @@ class Game:
             Args:
                 difficulty (str): the level of difficulty
         '''
+        
+        if difficulty == "easy":
+            return self.easy_df
+        if difficulty == "medium":
+            return self.medium_df
+        else:
+            return self.hard_df
         
 if __name__ == "__main__":
     new_game = Game("Joe")
