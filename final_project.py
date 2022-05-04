@@ -53,31 +53,61 @@ class Game:
              str: Will return the guesses made by the computer (letters or a word)
         """
         
-    def show_screen(self, player, computer, points, length, guess_number):
+    def show_screen(self, player, points, length, guess_number, player_guess, word, clue):
         """ This function displays the screen of the game to the player. This includes the players score,
         the computers score, the length of the word being guessed as well as its clue, and the amount of
-        guess the player and computer have used respectivly. 
+        guesses the player and computer have used respectivly. 
         Args:
             player (str): The players name stored as a string.
-            computer (str): The computer and its difficulty stored as a string.
             points (int): The points that the player or computer have stored as an integer.
             length (int): The length of the word stored as an integer.
             guess_number(int): The amount of guesses the user or computer have used stored as an integer.
+            player_guess(str): The guess the player inputs stored as a string.
+            word(str): The word the player is trying to guess stored as a string.
+            clue(str): the clue the user has stored as a string
+        Side Affects: Prints the current board for te user to see.
         """
-        
-    def calculate_points(self, player, computer, points, length, guess_number):
+        guess_number = 0
+        if guess_number < 3:
+            print(f"{self.player}'s game.")
+            print(f"You have {points} points")
+            print(f"Your clue is {clue}")
+            print(f"The word has {length} letters.")
+            print(f"You have used {self.guess_number} amount of guesses.")
+            if player_guess == word:
+                print(f"{word} is correct!")
+            else:
+                print(f"{word} is incorrect.")
+                guess_number += 1
+                print(f"{self.player}'s game.")
+                print(f"You have {self.points} points")
+                print(f"Your clue is {clue}")
+                print(f"The word has {self.length} letters.")
+                print(f"You have used {self.guess_number} amount of guesses.")
+        else:        
+            print("Out of guesses. Game over.")
+                
+    def calculate_points(self, guess_number, points, length, word):
         """ This function calculates the players and computers points respectivly. It uses the amount of guesses
         used, and the length of the word to calculate the points and adds them to either the player and computers
         score's respectivly.
         Args:
-           player (str): The players name stored as a string.
-            computer (str): The computer and its difficulty stored as a string.
-            points (int): The points that the player or computer have stored as an integer.
+            points(int): The points that the player or computer have stored as an integer.
             length (int): The length of the word stored as an integer.
             guess_number(int): The amount of guesses the user or computer have used stored as an integer.
+            word(str): the word the player is trying to guess stored as a string.
         """
-        
-        
+        length = len(word)
+        points += 0
+        if guess_number == 1:
+            points += length + 3
+        if guess_number == 2:
+            points += length + 2
+        if guess_number == 3:
+            points += length + 1
+        else:
+            points = 0
+            
     def pick_opponent(self, user, name):
         '''This function picks whether the user is playing against the computer or another person
         
