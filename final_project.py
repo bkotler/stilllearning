@@ -1,4 +1,6 @@
 import pandas as pd
+from random import randint
+
 class Game:
     """This is the class that holds the functions that run our final project, a word game. This game 
     reads a text file with words on it and a text file with the clues for guessing each word on it.
@@ -17,6 +19,9 @@ class Game:
         self.player_name = player_name
         self.user_words_guessed = list()
         self.user_points = 0
+        self.df = self.pick_difficulty()
+        self.generate_word = self.word, self.clue
+        self.play_game()
     def open_files(self, easy_path, medium_path, hard_path):
         """This will open three files and set them to dataframes. Each file
             is a csv file with of each word and clue
@@ -31,7 +36,7 @@ class Game:
         medium_df = pd.read_csv(medium_path)
         hard_df = pd.read_csv(hard_path)
     
-    def user_guesses(self, player, guess_length):
+    def user_guesses(self, guess_length, clue):
         
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
 
@@ -41,20 +46,13 @@ class Game:
         Returns:
              str: Will return the guesses made by the player (letters or a word)
         """
-        name = input("Type your name: ")
-        print(f" Hey {name}, Goodluck!")
-            
-            
-        words = input("Guess a word to solve this word game: ")
-        turns = 0
-        while turns < 3:
-            for words in .csv:
-                if words in .csv:
-                    print(f"Right word {words}")
-                else:
-                    turns += 1
-                    print
         
+        return input(f"Your clue is {clue}. Enter a word to solve:")
+            
+    def generate_word(self):
+            word = self.df.iloc(randint(0, len(self.df)-1), "Words")
+            clue = self.df.iloc(word, "Clues")
+            return (word, clue)
         
     def computer_guesses(self, player, guess_length):
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
@@ -66,7 +64,7 @@ class Game:
              str: Will return the guesses made by the computer (letters or a word)
         """
         
-    def show_screen(self, player, points, length, guess_number, player_guess, word, clue):
+    def play_game(self):
         """ This function displays the screen of the game to the player. This includes the players score,
         the computers score, the length of the word being guessed as well as its clue, and the amount of
         guesses the player and computer have used respectivly. 
@@ -81,26 +79,27 @@ class Game:
         Side Affects: Prints the current board for te user to see.
         """
         guess_number = 0
+        player_guess = self.user_guesses(0, self.clue)
         if guess_number < 3:
             print(f"{self.player}'s game.")
-            print(f"You have {points} points")
-            print(f"Your clue is {clue}")
-            print(f"The word has {length} letters.")
+            print(f"You have {self.calculate_points(guess_number, self.word.len(), self.word)} points")
+            print(f"Your clue is {self.clue}")
+            print(f"The word has {self.word.len()} letters.")
             print(f"You have used {self.guess_number} amount of guesses.")
-            if player_guess == word:
-                print(f"{word} is correct!")
+            if player_guess == self.word:
+                print(f"{self.word} is correct!")
             else:
-                print(f"{word} is incorrect.")
+                print(f"{self.word} is incorrect.")
                 guess_number += 1
                 print(f"{self.player}'s game.")
                 print(f"You have {self.points} points")
-                print(f"Your clue is {clue}")
-                print(f"The word has {self.length} letters.")
+                print(f"Your clue is {self.clue}")
+                print(f"The word has {self.word.len()} letters.")
                 print(f"You have used {self.guess_number} amount of guesses.")
         else:        
             print("Out of guesses. Game over.")
                 
-    def calculate_points(self, guess_number, points, length, word):
+    def calculate_points(self, guess_number, length, word):
         """ This function calculates the players and computers points respectivly. It uses the amount of guesses
         used, and the length of the word to calculate the points and adds them to either the player and computers
         score's respectivly.
@@ -111,7 +110,7 @@ class Game:
             word(str): the word the player is trying to guess stored as a string.
         """
         length = len(word)
-        points += 0
+        points = 0
         if guess_number == 1:
             points += length + 3
         if guess_number == 2:
@@ -121,22 +120,23 @@ class Game:
         else:
             points = 0
             
-    def pick_opponent(self, oppponent):
+    def pick_opponent(self, opponent):
         '''This function picks whether the user is playing against the computer or another person
         
             Args:
                 opponent (str): the name of the opponent
         '''
         
-        self.opponent = oppponent
+        self.opponent = opponent
+        return opponent
         
-    def pick_difficulty(self, difficulty):
+    def pick_difficulty(self):
         '''This function will determine the difficulty of the game, ranging from easiest to hardest
         
             Args:
                 difficulty (str): the level of difficulty
         '''
-        
+        difficulty = input("What difficulty do you want? (easy, medium, or hard)")
         if difficulty == "easy":
             return self.easy_df
         if difficulty == "medium":
