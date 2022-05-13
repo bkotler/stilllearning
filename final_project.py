@@ -148,6 +148,10 @@ class Game:
         '''
         difficulty = input("What difficulty do you want? (easy or hard)")
         
+        if difficulty == "easy":
+            self.easy = True
+        else:
+            self.easy = False
         return self.easy_df if difficulty == "easy" else self.hard_df
     
 def argument_parser():
