@@ -125,7 +125,7 @@ class Game:
                 opponent_name (str, optional): the name of the opponent (only if it is another user, not a computer)
         '''
         
-        opponent = input("Who do you want to play? (computer or human")
+        opponent = input("Who do you want to play? (computer or human)")
         
         if opponent == "human":
             return input("What is the name of the other human?")
