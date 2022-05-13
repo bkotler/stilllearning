@@ -41,6 +41,11 @@ class Game:
         
         return pd.read_csv(easy_path), pd.read_csv(hard_path)
     
+    def check_turn(self, player_1, player_2):
+        if self.count%2 != 0:
+             turn = player_1
+        else:
+             turn = player_2
     def user_guesses(self):
         
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
@@ -78,7 +83,7 @@ class Game:
             
         
         
-    def play_game(self):
+    def play_game(self, player_1p, player_2p):
         """ This function displays the screen of the game to the player. This includes the players score,
         the computers score, the length of the word being guessed as well as its clue, and the amount of
         guesses the player and computer have used respectivly. 
@@ -95,7 +100,10 @@ class Game:
         guess_number = 1
         while guess_number < 3:
             print(f"{self.player_name}'s turn.")
-            print(f"You have {self.calculate_points(guess_number)} points")
+            if turn == player_1:
+                 print(f"You have {self.calculate_points(player_1p)} points")
+            else:
+                print(f"You have {self.calculate_points(player_2p)} points")            
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
             print(f"You have used {guess_number} amount of guesses.")
@@ -128,7 +136,11 @@ class Game:
             points += length + 1
         else:
             points = 0
-            
+        if self.turn == self.player_1:
+            player_1p = points
+        else:
+            player_2p = points
+        
     def pick_opponent(self):
         '''This function picks whether the user is playing against the computer or another person
         
