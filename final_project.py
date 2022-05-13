@@ -119,11 +119,13 @@ class Game:
         else:
             points = 0
             
-    def pick_opponent(self, opponent):
+    def pick_opponent(self, opponent, user_name, opponent_name):
         '''This function picks whether the user is playing against the computer or another person
         
             Args:
-                opponent (str): the name of the opponent
+                opponent (str): the type of opponent
+                user_name (str): the name of the user
+                opponent_name (str, optional): the name of the opponent (only if it is another user, not a computer)
         '''
         
         self.opponent = opponent
