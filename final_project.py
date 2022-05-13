@@ -1,5 +1,6 @@
 import pandas as pd
 from random import randint
+from argparse import ArgumentParser
 
 class Game:
     """This is the class that holds the functions that run our final project, a word game. This game 
@@ -9,7 +10,7 @@ class Game:
     and computer are awarded points based on the amount of guesses they used.
     """
     
-    def __init__(self, player_name, easy_path):
+    def __init__(self, player_name, easy_path, hard_path):
         """This will set up the game and initiate the game attributes
         Args:
             player_name (str): The name of the player
@@ -19,7 +20,7 @@ class Game:
         self.player_name = player_name
         self.user_words_guessed = list()
         self.user_points = 0
-        self.easy_df, self.hard_df = self.open_files(easy_path)
+        self.easy_df, self.hard_df = self.open_files(easy_path, hard_path)
         self.df = self.pick_difficulty()
         self.word, self.clue = self.generate_word()
         self.play_game()
@@ -47,30 +48,13 @@ class Game:
         Returns:
              str: Will return the guesses made by the player (letters or a word)
         """
-<<<<<<< HEAD
         return input(f"Your clue is {clue}. Enter a word to solve: ")
         
-        
-        
-        
-    def generate_words(self):
-        """_summary_
-
-        Returns:
-            _type_: _description_
-        """
-        word = self.df.iloc(randint(0, len(self.df)-1), "Words")
-        clue = self.df.iloc(word, "Clues")
-        return (word, clue)
-=======
->>>>>>> 1b1b141e04e5b303d6dc668a9f0b28f81b7b6337
-        
-        return input(f"Your clue is {clue}. Enter a word to solve:")
             
     def generate_word(self):
-            df = self.df
-            word = "Bicycle"
-            clue = "A vehicle with training wheels"
+            random_int = randint(0, len(self.df.index)-1)
+            word = self.df.iloc[random_int, 0]
+            clue = self.df.iloc[random_int, 1]
             return word, clue
         
     def computer_guesses(self, player, guess_length):
@@ -158,6 +142,15 @@ class Game:
         difficulty = input("What difficulty do you want? (easy or hard)")
         
         return self.easy_df if difficulty == "easy" else self.hard_df
+    
+def argument_parser():
+    parser = ArgumentParser()
+    parser.add_argument("name", help = "Name of Player")
+    parser.add_argument("easy_path", help = "Filepath for easy words (csv)")
+    parser.add_argument("hard_path", help = "Filepath for hard words (csv)")
+    args = parser.parse_args()
+    return args
         
 if __name__ == "__main__":
-    new_game = Game("Joe", "words.csv")
+    args = argument_parser()
+    new_game = Game(args.name, args.easy_path, args.hard_path)
