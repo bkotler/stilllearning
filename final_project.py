@@ -49,20 +49,7 @@ class Game:
              str: Will return the guesses made by the player (letters or a word)
         """
 <<<<<<< HEAD
-        return input(f"Your clue is {clue}. Enter a word to solve: ")
-        
-        
-        
-        
-    def generate_words(self):
-        """_summary_
-
-        Returns:
-            _type_: _description_
-        """
-        word = self.df.iloc(randint(0, len(self.df)-1), "Words")
-        clue = self.df.iloc(word, "Clues")
-        return (word, clue)
+       
 =======
 >>>>>>> 1b1b141e04e5b303d6dc668a9f0b28f81b7b6337
         
