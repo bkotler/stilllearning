@@ -126,8 +126,12 @@ class Game:
                 opponent_name (str, optional): the name of the opponent (only if it is another user, not a computer)
         '''
         
-        self.opponent = opponent
-        return opponent
+        opponent = input("Who do you want to play? (computer or human")
+        
+        if opponent == "human":
+            return input("What is the name of the other human?")
+        else:
+            return opponent
         
     def pick_difficulty(self):
         '''This function will determine the difficulty of the game, ranging from easiest to hardest
