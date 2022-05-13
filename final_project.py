@@ -1,7 +1,7 @@
-from importlib.machinery import WindowsRegistryFinder
 import pandas as pd
 from random import randint
 from argparse import ArgumentParser
+import re
 
 class Game:
     """This is the class that holds the functions that run our final project, a word game. This game 
@@ -50,8 +50,12 @@ class Game:
         Returns:
              str: Will return the guesses made by the player (letters or a word)
         """
-        return input(f"Your clue is {clue}. Enter a word to solve: ")
-        
+        guess = input(f"Your clue is {clue}. Enter a word to solve: ")
+    
+        if guess == re.search("[a-z]"):
+            return guess
+        else:
+            print("Invalid guess. Please enter a word.")
             
     def generate_word(self):
             random_int = randint(0, len(self.df.index)-1)
