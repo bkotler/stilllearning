@@ -48,6 +48,11 @@ class Game:
         
         
     def generate_words(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
         word = self.df.iloc(randint(0, len(self.df)-1), "Words")
         clue = self.df.iloc(word, "Clues")
         return (word, clue)
