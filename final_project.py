@@ -136,12 +136,8 @@ class Game:
                 difficulty (str): the level of difficulty
         '''
         difficulty = input("What difficulty do you want? (easy, medium, or hard)")
-        if difficulty == "easy":
-            return self.easy_df
-        if difficulty == "medium":
-            return self.medium_df
-        else:
-            return self.hard_df
+        
+        return self.easy_df if difficulty == "easy" else self.hard_df
         
 if __name__ == "__main__":
     new_game = Game("Joe", "words.csv")
