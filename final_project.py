@@ -63,18 +63,17 @@ class Game:
             clue = self.df.iloc[random_int, 1]
             return word, clue
         
-    def computer_guesses(clue):
-        """This function will take the letters or word guessed by the player and it will return a match stored in the file.
+    def computer_guesses(self):
+        """_summary_
 
-        Args:
-            player (str): The computer will let the humna player know they are playing against the computer
-            guess_length (str): The length of the word guessed by the computer player
         Returns:
-             str: Will return the guesses made by the computer (letters or a word)
+            _type_: _description_
         """
-        guesses = clue 
-        while guesses == words:
-            print ("The computer gussed:" guesses)
+        random_int = randint(0, len(self.df.index)-1)
+        word_guess = self.df.iloc[random_int, 0]
+        
+        print(f"The computer gussed: {word_guess} ")
+        return word_guess 
             
         
         
