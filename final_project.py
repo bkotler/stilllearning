@@ -34,7 +34,7 @@ class Game:
             Sets the words_list and clues_list attributes to the data from the
                 files.
         """
-    
+        
         return pd.read_csv(easy_path), pd.read_csv(hard_path)
     
     def user_guesses(self, guess_length, clue):
@@ -105,12 +105,12 @@ class Game:
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
             print(f"You have used {guess_number} amount of guesses.")
-                guess_number += 1
+            guess_number += 1
             if player_guess == self.word:
                 print(f"{self.word} is correct!")
                 guess_number = 3
             elif guess_number == 3:        
-            print("Out of guesses. Game over.")
+                print("Out of guesses. Game over.")
                 
     def calculate_points(self, guess_number):
         """ This function calculates the players and computers points respectivly. It uses the amount of guesses
