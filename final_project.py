@@ -1,3 +1,4 @@
+from importlib.machinery import WindowsRegistryFinder
 import pandas as pd
 from random import randint
 
@@ -73,7 +74,7 @@ class Game:
             clue = "A vehicle with training wheels"
             return word, clue
         
-    def computer_guesses(self, player, guess_length):
+    def computer_guesses(clue):
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
 
         Args:
@@ -82,6 +83,11 @@ class Game:
         Returns:
              str: Will return the guesses made by the computer (letters or a word)
         """
+        guesses = clue 
+        while guesses == words:
+            print ("The computer gussed:" guesses)
+            
+        
         
     def play_game(self):
         """ This function displays the screen of the game to the player. This includes the players score,
