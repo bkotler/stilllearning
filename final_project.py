@@ -24,6 +24,7 @@ class Game:
         self.easy_df, self.hard_df = self.open_files(easy_path, hard_path)
         self.easy = True
         self.df = self.pick_difficulty()
+        self.opponent = self.pick_opponent()
         self.word, self.clue = self.generate_word()
         self.play_game()
         
@@ -40,7 +41,7 @@ class Game:
         
         return pd.read_csv(easy_path), pd.read_csv(hard_path)
     
-    def user_guesses(self, guess_length, clue):
+    def user_guesses(self):
         
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
 
@@ -50,9 +51,9 @@ class Game:
         Returns:
              str: Will return the guesses made by the player (letters or a word)
         """
-        guess = input(f"Your clue is {clue}. Enter a word to solve: ")
+        guess = input(f"Enter a word to solve: ")
     
-        if guess == re.search("[a-z]"):
+        if re.search(r"\w", guess) != None:
             return guess
         else:
             print("Invalid guess. Please enter a word.")
@@ -93,18 +94,19 @@ class Game:
         """
         guess_number = 1
         while guess_number < 3:
-            player_guess = self.user_guesses(0, self.clue)
-            print(f"{self.player_name}'s game.")
+            print(f"{self.player_name}'s turn.")
             print(f"You have {self.calculate_points(guess_number)} points")
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
             print(f"You have used {guess_number} amount of guesses.")
-            guess_number += 1
+            player_guess = self.user_guesses()
             if player_guess == self.word:
                 print(f"{self.word} is correct!")
                 guess_number = 3
-            elif guess_number == 3:        
-                print("Out of guesses. Game over.")
+            else:
+                guess_number += 1
+                if guess_number == 3:        
+                    print("Out of guesses. Game over.")
                 
     def calculate_points(self, guess_number):
         """ This function calculates the players and computers points respectivly. It uses the amount of guesses
@@ -127,7 +129,7 @@ class Game:
         else:
             points = 0
             
-    def pick_opponent(self, opponent, user_name, opponent_name):
+    def pick_opponent(self):
         '''This function picks whether the user is playing against the computer or another person
         
             Args:
