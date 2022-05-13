@@ -19,11 +19,12 @@ class Game:
         self.player_name = player_name
         self.user_words_guessed = list()
         self.user_points = 0
-        self.df = self.open_files(easy_path)
+        self.easy_df, self.hard_df = self.open_files(easy_path)
+        self.df = self.pick_difficulty()
         self.word, self.clue = self.generate_word()
         self.play_game()
         
-    def open_files(self, easy_path):
+    def open_files(self, easy_path, hard_path):
         """This will open three files and set them to dataframes. Each file
             is a csv file with of each word and clue
             easy_path (str): Filename of the easy clues file
@@ -34,9 +35,7 @@ class Game:
                 files.
         """
         
-        return pd.read_csv(easy_path)
-       # medium_df = pd.read_csv(medium_path)
-       # hard_df = pd.read_csv(hard_path)
+        return pd.read_csv(easy_path), pd.read_csv(hard_path)
     
     def user_guesses(self, guess_length, clue):
         
@@ -135,7 +134,7 @@ class Game:
             Args:
                 difficulty (str): the level of difficulty
         '''
-        difficulty = input("What difficulty do you want? (easy, medium, or hard)")
+        difficulty = input("What difficulty do you want? (easy or hard)")
         
         return self.easy_df if difficulty == "easy" else self.hard_df
         
