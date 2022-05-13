@@ -1,3 +1,4 @@
+from itertools import count
 import pandas as pd
 from random import randint
 from argparse import ArgumentParser
@@ -26,8 +27,8 @@ class Game:
         self.df = self.pick_difficulty()
         self.opponent = self.pick_opponent()
         self.word, self.clue = self.generate_word()
+        self.count = 0
         self.play_game()
-        
     def open_files(self, easy_path, hard_path):
         """This will open three files and set them to dataframes. Each file
             is a csv file with of each word and clue
@@ -42,10 +43,12 @@ class Game:
         return pd.read_csv(easy_path), pd.read_csv(hard_path)
     
     def check_turn(self, player_1, player_2):
-        if self.count%2 != 0:
+        if self.count%2 == 0:
              turn = player_1
+             return 1
         else:
              turn = player_2
+             return 2
     def user_guesses(self):
         
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
@@ -100,7 +103,7 @@ class Game:
         guess_number = 1
         while guess_number < 3:
             print(f"{self.player_name}'s turn.")
-            if turn == player_1:
+            if self.check_turn() == 1:
                  print(f"You have {self.calculate_points(player_1p)} points")
             else:
                 print(f"You have {self.calculate_points(player_2p)} points")            
@@ -140,7 +143,7 @@ class Game:
             player_1p = points
         else:
             player_2p = points
-        
+        count += 1
     def pick_opponent(self):
         '''This function picks whether the user is playing against the computer or another person
         
