@@ -20,9 +20,7 @@ class Game:
         self.user_words_guessed = list()
         self.user_points = 0
         self.df = self.open_files(easy_path)
-        word_clue = self.generate_word()
-        self.word = word_clue[0]
-        self.clue = word_clue[1]
+        self.word, self.clue = self.generate_word()
         self.play_game()
         
     def open_files(self, easy_path):
@@ -57,7 +55,7 @@ class Game:
             df = self.df
             word = "Bicycle"
             clue = "A vehicle with training wheels"
-            return [word, clue]
+            return word, clue
         
     def computer_guesses(self, player, guess_length):
         """This function will take the letters or word guessed by the player and it will return a match stored in the file.
