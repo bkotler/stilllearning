@@ -157,6 +157,9 @@ class Game:
             self.easy = False
         return self.easy_df if difficulty == "easy" else self.hard_df
     
+    def __repr__(self):
+        return f"Game({self.player_name}, {self.easy_path}, {self.hard_path})"
+    
 def argument_parser():
     parser = ArgumentParser()
     parser.add_argument("name", help = "Name of Player")
