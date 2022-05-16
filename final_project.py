@@ -42,12 +42,10 @@ class Game:
         
         return pd.read_csv(easy_path), pd.read_csv(hard_path)
     
-    def check_turn(self, player_1, player_2):
+    def check_turn(self):
         if self.count%2 == 0:
-             turn = player_1
              return 1
         else:
-             turn = player_2
              return 2
     def user_guesses(self):
         
@@ -59,12 +57,11 @@ class Game:
         Returns:
              str: Will return the guesses made by the player (letters or a word)
         """
-        guess = input(f"Enter a word to solve: ")
+        guess = input("Enter a word to solve: ")
     
-        if re.search(r"\w", guess) != None:
-            return guess
-        else:
-            print("Invalid guess. Please enter a word.")
+        while re.search(r"\w", guess) == None:
+            guess = input("Invalid guess. Please enter a word.: ")
+        return guess
             
     def generate_word(self):
             random_int = randint(0, len(self.df.index)-1)
@@ -86,7 +83,7 @@ class Game:
             
         
         
-    def play_game(self, player_1p, player_2p):
+    def play_game(self):
         """ This function displays the screen of the game to the player. This includes the players score,
         the computers score, the length of the word being guessed as well as its clue, and the amount of
         guesses the player and computer have used respectivly. 
@@ -101,12 +98,14 @@ class Game:
         Side Affects: Prints the current board for te user to see.
         """
         guess_number = 1
+        player_1p = 0
+        player_2p = 0
         while guess_number < 3:
             print(f"{self.player_name}'s turn.")
             if self.check_turn() == 1:
-                 print(f"You have {self.calculate_points(player_1p)} points")
+                 print(f"You have {self.calculate_points(guess_number, player_1p)} points")
             else:
-                print(f"You have {self.calculate_points(player_2p)} points")            
+                print(f"You have {self.calculate_points(guess_number, player_2p)} points")            
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
             print(f"You have used {guess_number} amount of guesses.")
@@ -119,7 +118,7 @@ class Game:
                 if guess_number == 3:        
                     print("Out of guesses. Game over.")
                 
-    def calculate_points(self, guess_number):
+    def calculate_points(self, guess_number, player_points):
         """ This function calculates the players and computers points respectivly. It uses the amount of guesses
         used, and the length of the word to calculate the points and adds them to either the player and computers
         score's respectivly.
@@ -130,20 +129,15 @@ class Game:
             word(str): the word the player is trying to guess stored as a string.
         """
         length = len(self.word)
-        points = 0
         if guess_number == 1:
-            points += length + 3
-        if guess_number == 2:
-            points += length + 2
-        if guess_number == 3:
-            points += length + 1
-        else:
-            points = 0
-        if self.turn == self.player_1:
-            player_1p = points
-        else:
-            player_2p = points
-        count += 1
+            player_points += length + 3
+        elif guess_number == 2:
+            player_points += length + 2
+        elif guess_number == 3:
+            player_points += length + 1
+        return player_points
+    
+    
     def pick_opponent(self):
         '''This function picks whether the user is playing against the computer or another person
         
