@@ -136,6 +136,12 @@ class Game:
             player_points += length + 1
         return player_points
     
+    def show_scores(self, player_points, player_1p, player_2p):
+        score = player_points
+        players = [self.player_name, 'Computer']
+        df = pd.DataFrame({'score': score}, index=players)
+        df.plot.bar(x = "Player", y = "Score")
+    
     
     def pick_opponent(self):
         '''This function picks whether the user is playing against the computer or another person
