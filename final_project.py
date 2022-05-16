@@ -89,7 +89,8 @@ class Game:
         player_2p = 0
         while guess_number_p1 < 3:
             print(f"{self.player_name}'s turn.")
-            print(f"You have {self.calculate_points(player_1p)} points")
+            player_1p = self.calculate_points(player_1p)
+            print(f"You have {player_1p} points")
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
             print(f"You have used {guess_number_p1} amount of guesses.")
@@ -104,7 +105,8 @@ class Game:
         guess_number_p2 = 1
         while guess_number_p2 < 3:
             print(f"computer's turn.")
-            print(f"You have {self.calculate_points(player_2p)} points")
+            player_2p = self.calculate_points(player_2p)
+            print(f"You have {player_2p} points")
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
             print(f"You have used {guess_number_p2} amount of guesses.")
@@ -136,10 +138,10 @@ class Game:
             player_points += length + 1
         return player_points
     
-    def show_scores(self, player_points, player_1p, player_2p):
-        score = player_points
+    def show_scores(self, player_1p, player_2p):
+        score = [self.player_1p, self.player_2p]
         players = [self.player_name, 'Computer']
-        df = pd.DataFrame({'score': score}, index=players)
+        df = pd.DataFrame({'Score': score}, index=players)
         df.plot.bar(x = "Player", y = "Score")
     
     
