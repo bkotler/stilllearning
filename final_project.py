@@ -11,36 +11,45 @@ class Game:
     The program will then have the player pick if they want too play against the computer and the 
     computers difficulty. The player will then try too guess the word using the clue(s). The player
     and computer are awarded points based on the amount of guesses they used.
+    Attributes:
+        player_name (str): name of the player
+        user_words_guessed (list of str): A list of the words the user has guessed
+        easy_path (str): filepath for easy words
+        hard_path (str): filepath for hard words
+        easy_df (Dataframe): dataframe of easy words
+        hard_df (Dataframe): dataframe of hard words
+        df (Dataframe): dataframe that will be used (either easy_df or hard_df)
+        word (str): The word the user and computer will have to guess
+        clue (str): The clue associated with the word being guessed
+        count (int): Keeps track of who's turn it is
     """
     
     def __init__(self, player_name, easy_path, hard_path):
         """This will set up the game and initiate the game attributes
         Args:
             player_name (str): The name of the player
+            easy_path (str): The filepath for the easy words
+            hard_path (str): The filepath for the hard words
         Side effects:
             Sets all the attributes and initilizes the game
         """
         self.player_name = player_name
         self.user_words_guessed = list()
-        self.user_points = 0
         self.easy_path = easy_path
         self.hard_path = hard_path
         self.easy_df, self.hard_df = self.open_files(self.easy_path, self.hard_path)
-        self.easy = True
         self.df = self.pick_difficulty()
         self.word, self.clue = self.generate_word()
         self.count = 0
         self.play_game()
         
     def open_files(self, easy_path, hard_path):
-        """This will open three files and set them to dataframes. Each file
-            is a csv file with of each word and clue
+        """This will open two files. Each file is a csv file with of each word 
+            and clue.
             easy_path (str): Filename of the easy clues file
-            medium_path (str): Filename of the medium clues file
             hard_path (str): Filename of the hard clues file
-        Side effects:
-            Sets the words_list and clues_list attributes to the data from the
-                files.
+        Returns:
+            tuple of Dataframes: Easy dataframe and hard dataframe
         """
         
         return pd.read_csv(easy_path), pd.read_csv(hard_path)
@@ -172,16 +181,20 @@ class Game:
         '''
         difficulty = input("What difficulty do you want? (easy or hard)")
         
-        if difficulty == "easy":
-            self.easy = True
-        else:
-            self.easy = False
         return self.easy_df if difficulty == "easy" else self.hard_df
     
     def __repr__(self):
+        """Returns the formal representation of the game class
+        Returns:
+            str: Formal representation of the game
+        """
         return f"Game({self.player_name}, {self.easy_path}, {self.hard_path})"
     
 def argument_parser():
+    """Parses arguments from the command line
+    Returns:
+        Namespace: the Player Name, easy filepath, and hard filepath
+    """
     parser = ArgumentParser()
     parser.add_argument("name", help = "Name of Player")
     parser.add_argument("easy_path", help = "Filepath for easy words (csv)")
