@@ -86,6 +86,14 @@ class Game:
         return word_guess   
         
     def play_game(self):
+        """This is the main function for the game. It prints the main stats such as the 
+        amount of points, word clue, word length and amount of guesses the user has used.
+        It also lets the user know when they are out of guesses and does all of the previously
+        mentioned things for the computer player.
+        Args:
+            player_1p (int): The amount of points the player has stored as and integer.
+            player_2p (int): the amount of point the computer has stored as an integer.
+            """
         guess_number_p1 = 1
         player_1p = 0
         player_2p = 0
@@ -129,14 +137,18 @@ class Game:
         self.show_scores(player_1p, player_2p)
                 
     def calculate_points(self, guess_number, player_points):
-        """ This function calculates the players and computers points respectivly. It uses the amount of guesses
-        used, and the length of the word to calculate the points and adds them to either the player and computers
-        score's respectivly.
+        """This function uses the length of the word and the amount of guesses used to 
+        calculate the total amount of points. It is used to calculate the players points and 
+        computers points respectivly.
+
         Args:
-            points(int): The points that the player or computer have stored as an integer.
-            length (int): The length of the word stored as an integer.
-            guess_number(int): The amount of guesses the user or computer have used stored as an integer.
-            word(str): the word the player is trying to guess stored as a string.
+            guess_number (int): The amount of guesses used stored as an integer.
+            player_points (int): The total amount of points stored as an integer.
+
+        Returns:
+            int: The total amount of points calculated. It is returned for either the player on 
+            their respective turn or the player computer on its respective turn. It is stored as
+            an integer.
         """
         length = len(self.word)
         if guess_number == 1:
