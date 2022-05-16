@@ -83,39 +83,36 @@ class Game:
             
         
         
-    def play_game(self):
-        """ This function displays the screen of the game to the player. This includes the players score,
-        the computers score, the length of the word being guessed as well as its clue, and the amount of
-        guesses the player and computer have used respectivly. 
-        Args:
-            player (str): The players name stored as a string.
-            points (int): The points that the player or computer have stored as an integer.
-            length (int): The length of the word stored as an integer.
-            guess_number(int): The amount of guesses the user or computer have used stored as an integer.
-            player_guess(str): The guess the player inputs stored as a string.
-            word(str): The word the player is trying to guess stored as a string.
-            clue(str): the clue the user has stored as a string
-        Side Affects: Prints the current board for te user to see.
-        """
-        guess_number = 1
-        player_1p = 0
-        player_2p = 0
-        while guess_number < 3:
+    def play_game(self, player_1p, player_2p):
+        guess_number_p1 = 1
+        while guess_number_p1 < 3:
             print(f"{self.player_name}'s turn.")
-            if self.check_turn() == 1:
-                 print(f"You have {self.calculate_points(guess_number, player_1p)} points")
-            else:
-                print(f"You have {self.calculate_points(guess_number, player_2p)} points")            
+            print(f"You have {self.calculate_points(player_1p)} points")
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
-            print(f"You have used {guess_number} amount of guesses.")
+            print(f"You have used {guess_number_p1} amount of guesses.")
             player_guess = self.user_guesses()
             if player_guess == self.word:
                 print(f"{self.word} is correct!")
-                guess_number = 3
+                guess_number_p1 = 3
             else:
-                guess_number += 1
-                if guess_number == 3:        
+                guess_number_p1 += 1
+                if guess_number_p1 == 3:        
+                    print("Out of guesses. Game over.")
+        guess_number_p2 = 1
+        while guess_number_p2 < 3:
+            print(f"{self.player_name}'s turn.")
+            print(f"You have {self.calculate_points(player_2p)} points")
+            print(f"Your clue is {self.clue}")
+            print(f"The word has {len(self.word)} letters.")
+            print(f"You have used {guess_number_p2} amount of guesses.")
+            computer_guess = self.computer_guesses()
+            if computer_guess == self.word:
+                print(f"{self.word} is correct!")
+                guess_number_p2 = 3
+            else:
+                guess_number_p2 += 1
+                if guess_number_p2 == 3:        
                     print("Out of guesses. Game over.")
                 
     def calculate_points(self, guess_number, player_points):
