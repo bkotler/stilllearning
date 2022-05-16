@@ -22,7 +22,9 @@ class Game:
         self.player_name = player_name
         self.user_words_guessed = list()
         self.user_points = 0
-        self.easy_df, self.hard_df = self.open_files(easy_path, hard_path)
+        self.easy_path = easy_path
+        self.hard_path = hard_path
+        self.easy_df, self.hard_df = self.open_files(self.easy_path, self.hard_path)
         self.easy = True
         self.df = self.pick_difficulty()
         self.word, self.clue = self.generate_word()
