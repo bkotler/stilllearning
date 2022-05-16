@@ -85,6 +85,8 @@ class Game:
         
     def play_game(self, player_1p, player_2p):
         guess_number_p1 = 1
+        player_1p = 0
+        player_2p = 0
         while guess_number_p1 < 3:
             print(f"{self.player_name}'s turn.")
             print(f"You have {self.calculate_points(player_1p)} points")
@@ -101,7 +103,7 @@ class Game:
                     print("Out of guesses. Game over.")
         guess_number_p2 = 1
         while guess_number_p2 < 3:
-            print(f"{self.player_name}'s turn.")
+            print(f"computer's turn.")
             print(f"You have {self.calculate_points(player_2p)} points")
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
