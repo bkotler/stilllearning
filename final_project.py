@@ -41,7 +41,11 @@ class Game:
         self.df = self.pick_difficulty()
         self.word, self.clue = self.generate_word()
         self.count = 0
-        self.play_game()
+        self.computer_name = input("Enter a name for the computer player or leave blank for computer")
+        if self.computer_name == "":
+            self.play_game()
+        else:
+            self.play_game(self.computer_name)
         
     def open_files(self, easy_path, hard_path):
         """This will open two files. Each file is a csv file with of each word 
@@ -94,7 +98,7 @@ class Game:
         print(f"The computer gussed: {word_guess} ")
         return word_guess 
         
-    def play_game(self, computer_name = "computer"):
+    def play_game(self, computer_name = "Computer"):
         """This is the main function for the game. It prints the main stats such as the 
         amount of points, word clue, word length and amount of guesses the user has used.
         It also lets the user know when they are out of guesses and does all of the previously
@@ -103,8 +107,6 @@ class Game:
             player_1p (int): The amount of points the player has stored as and integer.
             player_2p (int): the amount of point the computer has stored as an integer.
             """
-        self.computer_name = computer_name
-        computer_name = input("Enter a name for the computer player or leave blank for computer")
         guess_number_p1 = 1
         player_1p = 0
         player_2p = 0
@@ -171,7 +173,7 @@ class Game:
         return player_points
 
     def show_scores(self, player_1p, player_2p):
-        data = [[self.player_name, player_1p], [[self.computer_name], player_2p]]
+        data = [[self.player_name, player_1p], [self.computer_name, player_2p]]
         df = pd.DataFrame(data, columns=["Player", "Score"])
         df.plot.bar(x = "Player", y = "Score")
         
