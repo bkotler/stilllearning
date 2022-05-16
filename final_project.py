@@ -94,7 +94,7 @@ class Game:
             print(f"You have {player_1p} points")
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
-            print(f"You have used {guess_number_p1} amount of guesses.")
+            print(f"This is guess number {guess_number_p1}.")
             player_guess = self.user_guesses()
             if player_guess == self.word:
                 print(f"{self.word} is correct!")
@@ -105,12 +105,12 @@ class Game:
                     print("Out of guesses. Game over.")
         guess_number_p2 = 1
         while guess_number_p2 < 3:
-            print(f"computer's turn.")
+            print(f"Computer's turn.")
             player_2p = self.calculate_points(player_2p)
-            print(f"You have {player_2p} points")
-            print(f"Your clue is {self.clue}")
+            print(f"Computer has {player_2p} points")
+            print(f"The clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
-            print(f"You have used {guess_number_p2} amount of guesses.")
+            print(f"This is guess number {guess_number_p2}.")
             computer_guess = self.computer_guesses()
             if computer_guess == self.word:
                 print(f"{self.word} is correct!")
@@ -119,6 +119,9 @@ class Game:
                 guess_number_p2 += 1
                 if guess_number_p2 == 3:        
                     print("Out of guesses. Game over.")
+                    
+        print("Here are your scores:")
+        self.show_scores(player_1p, player_2p)
                 
     def calculate_points(self, guess_number, player_points):
         """ This function calculates the players and computers points respectivly. It uses the amount of guesses
@@ -138,7 +141,7 @@ class Game:
         elif guess_number == 3:
             player_points += length + 1
         return player_points
-    
+
     def show_scores(self, player_1p, player_2p):
         score = [self.player_1p, self.player_2p]
         players = [self.player_name, 'Computer']
