@@ -2,6 +2,7 @@ from itertools import count
 import pandas as pd
 from random import randint
 from argparse import ArgumentParser
+import matplotlib.pyplot as plt
 import re
 
 class Game:
@@ -62,7 +63,7 @@ class Game:
         """
         guess = input("Enter a word to solve: ")
     
-        while re.search(r"\w", guess) == None:
+        while re.search(r"[A-Za-z]\b", guess) == None:
             guess = input("Invalid guess. Please enter a word.: ")
         return guess
             
@@ -84,41 +85,45 @@ class Game:
         print(f"The computer gussed: {word_guess} ")
         return word_guess   
         
-    def play_game(self, player_1p, player_2p):
+    def play_game(self):
         guess_number_p1 = 1
         player_1p = 0
         player_2p = 0
-        while guess_number_p1 < 3:
+        while guess_number_p1 <= 3:
             print(f"{self.player_name}'s turn.")
-            player_1p = self.calculate_points(player_1p)
-            print(f"You have {player_1p} points")
             print(f"Your clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
             print(f"This is guess number {guess_number_p1}.")
             player_guess = self.user_guesses()
             if player_guess == self.word:
                 print(f"{self.word} is correct!")
-                guess_number_p1 = 3
+                player_1p = self.calculate_points(guess_number_p1, player_1p)
+                print(f"You have {player_1p} points")
+                guess_number_p1 = 4
             else:
                 guess_number_p1 += 1
-                if guess_number_p1 == 3:        
+                if guess_number_p1 == 4:        
                     print("Out of guesses. Game over.")
+                    player_1p = 0
+                    print(f"You have {player_1p} points")
         guess_number_p2 = 1
-        while guess_number_p2 < 3:
+        while guess_number_p2 <= 3:
             print(f"Computer's turn.")
-            player_2p = self.calculate_points(player_2p)
-            print(f"Computer has {player_2p} points")
             print(f"The clue is {self.clue}")
             print(f"The word has {len(self.word)} letters.")
             print(f"This is guess number {guess_number_p2}.")
             computer_guess = self.computer_guesses()
             if computer_guess == self.word:
                 print(f"{self.word} is correct!")
-                guess_number_p2 = 3
+                player_2p = self.calculate_points(guess_number_p2, player_2p)
+                print(f"Computer has {player_2p} points")
+                guess_number_p2 = 4
             else:
                 guess_number_p2 += 1
-                if guess_number_p2 == 3:        
+                if guess_number_p2 == 4:        
                     print("Out of guesses. Game over.")
+                    player_2p = 0
+                    print(f"Computer has {player_2p} points")
                     
         print("Here are your scores:")
         self.show_scores(player_1p, player_2p)
@@ -143,9 +148,8 @@ class Game:
         return player_points
 
     def show_scores(self, player_1p, player_2p):
-        score = [self.player_1p, self.player_2p]
-        players = [self.player_name, 'Computer']
-        df = pd.DataFrame({'Score': score}, index=players)
+        data = [[self.player_name, player_1p], ["Computer", player_2p]]
+        df = pd.DataFrame(data, columns=["Player", "Score"])
         df.plot.bar(x = "Player", y = "Score")
         
     def pick_difficulty(self):
