@@ -195,6 +195,10 @@ class Game:
         
             Args:
                 difficulty (str): the level of difficulty
+                
+            Returns:
+                easy_df (list of str): the list of easy words
+                hard_df (list of str): the list of hard words
         '''
         difficulty = input("What difficulty do you want? (easy or hard)")
         
