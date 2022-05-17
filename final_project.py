@@ -65,14 +65,11 @@ class Game:
              return 2
          
     def user_guesses(self):
-        
-        """This function will take the letters or word guessed by the player and it will return a match stored in the file.
+        """This function will take a word gussed by the user, and it will return the word gussed by the user, whether it's being
+        considered as an easy or hard word.
 
-        Args:
-            player (str): The player will identify who they are
-            guess_length (str):The length of the word guessed by the player
         Returns:
-             str: Will return the guesses made by the player (letters or a word)
+            str: a word, either "easy" or "hard"
         """
         guess = input("Enter a word to solve: ")
     
@@ -81,16 +78,21 @@ class Game:
         return guess
             
     def generate_word(self):
-            random_int = randint(0, len(self.df.index)-1)
-            word = self.df.iloc[random_int, 0]
-            clue = self.df.iloc[random_int, 1]
-            return word, clue
-        
-    def computer_guesses(self):
-        """_summary_
+        """This fundction will randomize the words from our csv files from specific cell in the dataset.
 
         Returns:
-            _type_: _description_
+            str: The randomized word and or clue
+        """
+        random_int = randint(0, len(self.df.index)-1)
+        word = self.df.iloc[random_int, 0]
+        clue = self.df.iloc[random_int, 1]
+        return word, clue
+        
+    def computer_guesses(self):
+        """This function allows the computer player to gusses a word, it'll randomly pick from a particular row or column.
+
+        Returns:
+            str: word gussed by the computer player
         """
         random_int = randint(0, len(self.df.index)-1)
         word_guess = self.df.iloc[random_int, 0]
