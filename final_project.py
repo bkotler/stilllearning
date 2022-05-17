@@ -175,6 +175,17 @@ class Game:
         return player_points
 
     def show_scores(self, player_1p, player_2p):
+        '''This function takes the calculated scores from the function above and visualizes it in a plot
+        for the players to see who is winning.
+        
+        Args:
+            player_1p (int): The amount of points the player has stored as and integer.
+            player_2p (int): the amount of point the computer has stored as an integer.
+            
+        Side Effects:
+            Places a graph on the screen of the user (when run in Jupyter Notebook)
+        '''
+        
         data = [[self.player_name, player_1p], [self.computer_name, player_2p]]
         df = pd.DataFrame(data, columns=["Player", "Score"])
         df.plot.bar(x = "Player", y = "Score")
