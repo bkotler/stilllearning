@@ -43,6 +43,7 @@ class Game:
         self.count = 0
         self.computer_name = input("Enter a name for the computer player or leave blank for computer")
         if self.computer_name == "":
+            self.computer_name = "Computer"
             self.play_game()
         else:
             self.play_game(self.computer_name)
@@ -59,17 +60,21 @@ class Game:
         return pd.read_csv(easy_path), pd.read_csv(hard_path)
     
     def check_turn(self):
+        """Checks which player's turn it is based on the count
+
+        Returns:
+            int: 1 for player 1's turn, 2 for computer's turn
+        """
         if self.count%2 == 0:
              return 1
         else:
              return 2
          
     def user_guesses(self):
-        """This function will take a word gussed by the user, and it will return the word gussed by the user, whether it's being
-        considered as an easy or hard word.
+        """This function return a valid word guessed by the user
 
         Returns:
-            str: a word, either "easy" or "hard"
+            str: the user's guess
         """
         guess = input("Enter a word to solve: ")
     
@@ -78,10 +83,10 @@ class Game:
         return guess
             
     def generate_word(self):
-        """This fundction will randomize the words from our csv files from specific cell in the dataset.
+        """This function will return a random word and clue for the user to guess
 
         Returns:
-            str: The randomized word and or clue
+            str: The randomized word and clue
         """
         random_int = randint(0, len(self.df.index)-1)
         word = self.df.iloc[random_int, 0]
@@ -92,7 +97,7 @@ class Game:
         """This function allows the computer player to gusses a word, it'll randomly pick from a particular row or column.
 
         Returns:
-            str: word gussed by the computer player
+            str: word guessed by the computer player
         """
         random_int = randint(0, len(self.df.index)-1)
         word_guess = self.df.iloc[random_int, 0]
@@ -106,8 +111,8 @@ class Game:
         It also lets the user know when they are out of guesses and does all of the previously
         mentioned things for the computer player.
         Args:
-            player_1p (int): The amount of points the player has stored as and integer.
-            player_2p (int): the amount of point the computer has stored as an integer.
+            computer_name (str, optional): Name of the computer player. Defaults
+                to Computer.
             """
         guess_number_p1 = 1
         player_1p = 0
